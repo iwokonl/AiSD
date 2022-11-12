@@ -13,8 +13,12 @@ class Matrix:
             self.matrix.append([float(0) for x in range(m)])
         Matrix.aktualizacja(self)
 
+
     # Mnożenie macierzy
     def __mul__(self, other) -> list[list[float]]:
+        if Matrix.wysokosc_macierzy(self) != other.szerokosc_macierzy():
+            print("Nie właściwa macierz")
+            return 0
         # Ustalanie nowych pomocniczych macierzy
         matrixx = []
         # Tworzenie nowej macierzy jako obiekt "Matrix"
@@ -63,38 +67,47 @@ class Matrix:
         return len(self.matrix[0])
 
     def aktualizacja(self) -> None:
-        Matrix.wys = len(self.matrix) -1
-        Matrix.szer = len(self.matrix[0]) -1
+        if self.matrix == []:
+            Matrix.wys = 0
+            Matrix.szer = 0
+        else:
+            Matrix.wys = len(self.matrix) - 1
+            Matrix.szer = len(self.matrix[0]) - 1
         Matrix.Dane = self.matrix
 
     # Ustawia zadaną wartość na dany idex
-    def ustal(self,index_poz:int,index_pion:int,wartosc:float) -> None:
-        # # Zmienne, żeby łatwiej ogarnąć
-        xx = index_poz
-        yy = index_pion
+    def ustal(self, index_poz: int, index_pion: int, wartosc: float) -> None:
+        # Zmienne, żeby łatwiej ogarnąć
+        # Tablica pomocnicza
         matrix = []
-        maxv = max(index_pion,index_pion)
-        print(maxv)
+        # Aby macierz była równa
+        maxv = max(index_pion, index_poz)
         dodanie_dlugosci_w_poziomie = maxv - len(self.matrix)
         dodanie_dlugosci_w_pionie = maxv - len(self.matrix)
-        dodawanie_wartosci_poziom = [float(0) for x in range(len(self.matrix[0]))]
-        dodawanie_wartosci_ost_wartosci_w_tablicy = float(0)
-        if len(self.matrix[0]) < index_poz or len(self.matrix) < index_pion :
+        wypelnianie_tablicy_w_pionie_pod_istniejacymi = [float(0) for x in range(maxv)]
+        wypelnianie_tablicy_w_pionie_po_prawej_od_istniejacych = float(0)
+        # Buguje się i nie ma idexu zeru przy pustej
+        if len(self.matrix) == 0:
+            dlugosc_self_matrix__0_ = 0
+        else:
+            dlugosc_self_matrix__0_ = len(self.matrix[0])
+        if dlugosc_self_matrix__0_ <= index_poz or len(self.matrix) <= index_pion:
             # Bebechy
-            for y in range(dodanie_dlugosci_w_pionie+1):
-                self.matrix.append(dodawanie_wartosci_poziom)
-            for y in range(dodanie_dlugosci_w_poziomie+1):
-                for x in range(index_pion+1):
-                    self.matrix[x].append(dodawanie_wartosci_ost_wartosci_w_tablicy)
+            for y in range(dodanie_dlugosci_w_pionie + 1):
+                self.matrix.append(wypelnianie_tablicy_w_pionie_pod_istniejacymi)
+            for y in range(dodanie_dlugosci_w_poziomie + 1):
+                for x in range(maxv + 1):
+                    self.matrix[x].append(wypelnianie_tablicy_w_pionie_po_prawej_od_istniejacych)
             # Dodawanie zadanej wartości
-            for y in range(len(self.matrix[0])):
+            # Kopia dlatego, że coś się bugowało
+            for y in range(maxv+1):
                 matrix.append([float(0) for x in range(len(self.matrix))])
             for y in range(len(self.matrix)):
-                for x in range(len(self.matrix[0])):
+                for x in range(maxv+1):
                     matrix[y][x] = self.matrix[y][x]
+            # Dodawanie zadanej wartości
             matrix[index_poz][index_pion] = float(wartosc)
             self.matrix = matrix
-
         else:
             # Dodawanie zadanej wartości
             self.matrix[index_poz][index_pion] = float(wartosc)
@@ -102,25 +115,30 @@ class Matrix:
     # Pobiera daną wartość po indexie
     def pobierz(self, index_1: int, index_2: int) -> float:
         try:
+            # Zwracanie wartosci
             return float(self.matrix[index_1][index_2])
         except IndexError:
             return 0
+        # Stało się coś czego nie przewidziałem
         except:
             return f"Coś zjebałeś"
 
     # Transponuje daną macierz
     def transponuj(self):
         # Tworzenie nowej macierzy jako obiekt "Matrix"
-        matrix = Matrix(len(self.matrix))
-        for y in range(len(self.matrix)):
-            for x in range(len(self.matrix[0])):
-                matrix.ustal(x, y, self.matrix[y][x])
+        matrix = Matrix(0)
+        for x in range(len(self.matrix)):
+            for y in range(len(self.matrix[0])):
+                matrix.ustal(y,x,1)
+        for y in range(len(self.matrix[0])):
+            for x in range(len(self.matrix)):
+                matrix.ustal(y, x, self.matrix[x][y])
+        matrix.uprosc()
         Matrix.aktualizacja(self)
         return matrix
 
     # Drukuje całą macierz
     def print(self) -> str:
-        i = 0
         if self.matrix == []:
             print("Pusta []")
         for x in range(len(self.matrix)):
@@ -142,7 +160,6 @@ class Matrix:
             Matrix.aktualizacja(self)
             return 0
         i = 0
-        pomoc = 0
         # Reverse dlatego żeby nie operowało na nie istniejącym idexie
         # A matrix [x] żeby wywalało cały wiersz
         for x in reversed(range(len(self.matrix))):
