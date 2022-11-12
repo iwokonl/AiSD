@@ -1,4 +1,5 @@
 class Matrix:
+    # ✅
     # Pola klasy
     Dane: list[list[float]]
     wys: int
@@ -6,19 +7,24 @@ class Matrix:
 
     # Inicjalizowanie tablicy 2D
     def __init__(self, m: int) -> None:
+
         Matrix.wys = 0
         Matrix.szer = 0
         self.matrix = []
         for y in range(m):
             self.matrix.append([float(0) for x in range(m)])
+        if m == -2137:
+            self.matrix = [-2137]
+            return
         Matrix.aktualizacja(self)
 
-
+    # ✅
     # Mnożenie macierzy
     def __mul__(self, other) -> list[list[float]]:
         if Matrix.wysokosc_macierzy(self) != other.szerokosc_macierzy():
+            matrix = Matrix(-2137)
             print("Nie właściwa macierz")
-            return 0
+            return matrix
         # Ustalanie nowych pomocniczych macierzy
         matrixx = []
         # Tworzenie nowej macierzy jako obiekt "Matrix"
@@ -39,33 +45,68 @@ class Matrix:
         Matrix.aktualizacja(self)
         return matrix
 
+    # ✅
     # Sumowanie
     def __add__(self, other):
-        # Tworzenie nowej macierzy jako obiekt "Matrix"
-        matrix = Matrix(len(self.matrix))
-        for x in range(len(self.matrix)):
-            for y in range(len(self.matrix[0])):
-                matrix.ustal(x, y, self.matrix[x][y] + other.pobierz(x, y))
-        Matrix.aktualizacja(self)
-        return matrix
-
+        if Matrix.wysokosc_macierzy(self) != other.wysokosc_macierzy() or Matrix.szerokosc_macierzy(self) != other.szerokosc_macierzy():
+            matrix = Matrix(-2137)
+            print("Nie właściwa macierz")
+            return matrix
+        else:
+            # Ustalanie nowych pomocniczych macierzy
+            matrixx = []
+            # Tworzenie nowej macierzy jako obiekt "Matrix"
+            matrix = Matrix(len(self.matrix))
+            # Dodawanko ale trickiem
+            for y in range(len(self.matrix)):
+                matrixx.append([float(0) for x in range(len(self.matrix))])
+            for j in range(other.szerokosc_macierzy()):
+                # iterate through rows of Y
+                for k in range(other.wysokosc_macierzy()):
+                    matrixx[j][k] += self.matrix[j][k] + other.pobierz(j, k)
+            # Wrzucanie wartości do właściwej macierzy
+            for x in range(len(matrixx)):
+                for y in range(len(matrixx[0])):
+                    matrix.ustal(x, y, matrixx[x][y])
+            Matrix.aktualizacja(self)
+            return matrix
+    # ✅
     # Odejmowanie
     def __sub__(self, other):
-        matrix = Matrix(len(self.matrix))
-        for x in range(len(self.matrix)):
-            for y in range(len(self.matrix[0])):
-                matrix.ustal(x, y, self.matrix[x][y] - other.pobierz(x, y))
-        Matrix.aktualizacja(self)
-        return matrix
+        if Matrix.wysokosc_macierzy(self) != other.wysokosc_macierzy() or Matrix.szerokosc_macierzy(self) != other.szerokosc_macierzy():
+            matrix = Matrix(-2137)
+            print("Nie właściwa macierz")
+            return matrix
+        else:
+            # Ustalanie nowych pomocniczych macierzy
+            matrixx = []
+            # Tworzenie nowej macierzy jako obiekt "Matrix"
+            matrix = Matrix(len(self.matrix))
+            # Dodawanko ale trickiem
+            for y in range(len(self.matrix)):
+                matrixx.append([float(0) for x in range(len(self.matrix))])
+            for j in range(other.szerokosc_macierzy()):
+                # iterate through rows of Y
+                for k in range(other.wysokosc_macierzy()):
+                    matrixx[j][k] += self.matrix[j][k] - other.pobierz(j, k)
+            # Wrzucanie wartości do właściwej macierzy
+            for x in range(len(matrixx)):
+                for y in range(len(matrixx[0])):
+                    matrix.ustal(x, y, matrixx[x][y])
+            Matrix.aktualizacja(self)
+            return matrix
 
+    # ✅
     # Tak jak nazwa metody mówi
     def wysokosc_macierzy(self) -> int:
         return len(self.matrix)
 
+    # ✅
     # Tak jak nazwa metody mówi
     def szerokosc_macierzy(self) -> int:
         return len(self.matrix[0])
 
+    # ✅
     def aktualizacja(self) -> None:
         if self.matrix == []:
             Matrix.wys = 0
@@ -75,6 +116,7 @@ class Matrix:
             Matrix.szer = len(self.matrix[0]) - 1
         Matrix.Dane = self.matrix
 
+    # ✅
     # Ustawia zadaną wartość na dany idex
     def ustal(self, index_poz: int, index_pion: int, wartosc: float) -> None:
         # Zmienne, żeby łatwiej ogarnąć
@@ -112,6 +154,7 @@ class Matrix:
             # Dodawanie zadanej wartości
             self.matrix[index_poz][index_pion] = float(wartosc)
 
+    # ✅
     # Pobiera daną wartość po indexie
     def pobierz(self, index_1: int, index_2: int) -> float:
         try:
@@ -123,6 +166,7 @@ class Matrix:
         except:
             return f"Coś zjebałeś"
 
+    # ✅
     # Transponuje daną macierz
     def transponuj(self):
         # Tworzenie nowej macierzy jako obiekt "Matrix"
@@ -137,16 +181,24 @@ class Matrix:
         Matrix.aktualizacja(self)
         return matrix
 
+    # ✅
     # Drukuje całą macierz
     def print(self) -> str:
-        if self.matrix == []:
-            print("Pusta []")
-        for x in range(len(self.matrix)):
-            for y in range(len(self.matrix[0])):
-                print(str(self.matrix[x][y]) + " ", end=" ")
-            print()
-        print("\n")
+        try:
+            if self.matrix == []:
+                print("Pusta []")
+            if self.matrix == [-2137]:
+                return f'Nie wałaściwa macierz'
+            for x in range(len(self.matrix)):
+                for y in range(len(self.matrix[0])):
+                    print(str(self.matrix[x][y]) + " ", end=" ")
+                print()
+            print("\n")
+        except AttributeError:
+            i = 0
 
+
+    # ✅
     # Uproszczanie macierzy
     def uprosc(self) -> None:
         a = 0
