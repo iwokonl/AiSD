@@ -42,7 +42,7 @@ class Matrix:
         for x in range(len(matrixx)):
             for y in range(len(matrixx[0])):
                 matrix.ustal(x, y, matrixx[x][y])
-        Matrix.aktualizacja(self)
+        Matrix.aktualizacja(matrix)
         return matrix
 
     # ✅
@@ -69,7 +69,7 @@ class Matrix:
             for x in range(len(matrixx)):
                 for y in range(len(matrixx[0])):
                     matrix.ustal(x, y, matrixx[x][y])
-            Matrix.aktualizacja(self)
+            Matrix.aktualizacja(matrix)
             return matrix
 
     # ✅
@@ -96,7 +96,7 @@ class Matrix:
             for x in range(len(matrixx)):
                 for y in range(len(matrixx[0])):
                     matrix.ustal(x, y, matrixx[x][y])
-            Matrix.aktualizacja(self)
+            Matrix.aktualizacja(matrix)
             return matrix
 
     # ✅
