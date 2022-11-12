@@ -48,7 +48,8 @@ class Matrix:
     # ✅
     # Sumowanie
     def __add__(self, other):
-        if Matrix.wysokosc_macierzy(self) != other.wysokosc_macierzy() or Matrix.szerokosc_macierzy(self) != other.szerokosc_macierzy():
+        if Matrix.wysokosc_macierzy(self) != other.wysokosc_macierzy() or \
+                Matrix.szerokosc_macierzy(self) != other.szerokosc_macierzy():
             matrix = Matrix(-2137)
             print("Nie właściwa macierz")
             return matrix
@@ -70,10 +71,12 @@ class Matrix:
                     matrix.ustal(x, y, matrixx[x][y])
             Matrix.aktualizacja(self)
             return matrix
+
     # ✅
     # Odejmowanie
     def __sub__(self, other):
-        if Matrix.wysokosc_macierzy(self) != other.wysokosc_macierzy() or Matrix.szerokosc_macierzy(self) != other.szerokosc_macierzy():
+        if Matrix.wysokosc_macierzy(self) != other.wysokosc_macierzy() or \
+                Matrix.szerokosc_macierzy(self) != other.szerokosc_macierzy():
             matrix = Matrix(-2137)
             print("Nie właściwa macierz")
             return matrix
@@ -164,7 +167,7 @@ class Matrix:
             return 0
         # Stało się coś czego nie przewidziałem
         except:
-            return f"Coś zjebałeś"
+            return f"Coś nie tak"
 
     # ✅
     # Transponuje daną macierz
@@ -173,30 +176,27 @@ class Matrix:
         matrix = Matrix(0)
         for x in range(len(self.matrix)):
             for y in range(len(self.matrix[0])):
-                matrix.ustal(y,x,1)
+                matrix.ustal(y, x, 1)
         for y in range(len(self.matrix[0])):
             for x in range(len(self.matrix)):
                 matrix.ustal(y, x, self.matrix[x][y])
-        matrix.uprosc()
+        if Matrix.wysokosc_macierzy(self) != Matrix.szerokosc_macierzy(self):
+            matrix.uprosc()
         Matrix.aktualizacja(self)
         return matrix
 
     # ✅
     # Drukuje całą macierz
     def print(self) -> str:
-        try:
-            if self.matrix == []:
-                print("Pusta []")
-            if self.matrix == [-2137]:
-                return f'Nie wałaściwa macierz'
-            for x in range(len(self.matrix)):
-                for y in range(len(self.matrix[0])):
-                    print(str(self.matrix[x][y]) + " ", end=" ")
-                print()
-            print("\n")
-        except AttributeError:
-            i = 0
-
+        if not self.matrix:
+            print("Pusta []")
+        if self.matrix == [-2137]:
+            return f'Nie wałaściwa macierz'
+        for x in range(len(self.matrix)):
+            for y in range(len(self.matrix[0])):
+                print(str(self.matrix[x][y]) + " ", end=" ")
+            print()
+        print("\n")
 
     # ✅
     # Uproszczanie macierzy
