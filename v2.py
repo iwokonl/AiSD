@@ -48,6 +48,7 @@ class Mac_2d_k():
             matrix.aktualizacja()
             return matrix
         else:
+            matrix.aktualizacja()
             print("Zła macierz")
             return matrix
 
@@ -152,7 +153,9 @@ a.ustal(0,0,1)
 a.ustal(0,1,2)
 a.ustal(1,0,3)
 a.ustal(1,44,4)
+print(a.wys)
 a = a * a
 a.print()
+print(a.szer)
 
 
