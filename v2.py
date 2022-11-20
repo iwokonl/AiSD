@@ -48,6 +48,7 @@ class Mac_2d_k():
             print()
         print("\n")
 
+
     def transponuj(self) -> 'Mac_2d_k':
         Mac_2d_k.aktualizacja(self)
         szer = Mac_2d_k.szer
@@ -62,22 +63,53 @@ class Mac_2d_k():
     # ✅
     # Uproszczanie macierzy
     def uprosc(self) -> None:
-        flaga = 1
+        flaga = 0
 
         Mac_2d_k.aktualizacja(self)
-        for x in reversed(range(Mac_2d_k.wys)):
-            for y in reversed(range(Mac_2d_k.szer)):
+        for y in reversed(range(Mac_2d_k.wys)):
+            for x in reversed(range(Mac_2d_k.szer)):
+                if self.dane[x][y] == 0:
+                    flaga = flaga + 1
+                if flaga == Mac_2d_k.szer:
+                    del self.dane[x][y]
+            if flaga < Mac_2d_k.szer:
+                break
+            flaga = 0
+        flaga = 0
+
+        Mac_2d_k.aktualizacja(self)
+        matrix = [[float(0) for x in range(Mac_2d_k.szer)] for y in range(Mac_2d_k.wys)]
+        for x in range(Mac_2d_k.wys):
+            for y in range(Mac_2d_k.szer):
+                matrix[x][y] = self.dane[y][x]
+        self.dane = matrix
+        for x in reversed(range(Mac_2d_k.szer)):
+            for y in reversed(range(Mac_2d_k.wys)):
                 if self.dane[y][x] == 0:
                     flaga = flaga + 1
                 if flaga == Mac_2d_k.wys:
                     del self.dane[y][x]
-            flaga = 1
-
-
+            if flaga < Mac_2d_k.wys:
+                break
+            flaga = 0
+        Mac_2d_k.aktualizacja(self)
+        matrix = [[float(0) for x in range(Mac_2d_k.szer)] for y in range(Mac_2d_k.wys)]
+        for x in range(Mac_2d_k.wys):
+            for y in range(Mac_2d_k.szer):
+                matrix[x][y] = self.dane[y][x]
+        self.dane = matrix
 a = Mac_2d_k()
 a.ustal(0,3,1)
-a.ustal(0,5,0)
+a.ustal(0,6,0)
 a.ustal(0,4,1)
-a.ustal(5,3,0)
+a.ustal(1,1,0)
+a.ustal(4,4,0)
+a.ustal(4,5,0)
+a.ustal(2,2,2)
+a.ustal(3,2,2)
+a.print()
+print(a.dane)
 a.uprosc()
 a.print()
+
+
