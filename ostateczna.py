@@ -105,6 +105,7 @@ class Mac_2d_k():
         for x in range(wys):
             for y in range(szer):
                 matrix.ustal(y, x, self.dane[y][x])
+        matrix.aktualizacja()
         return matrix
 
     # ✅
