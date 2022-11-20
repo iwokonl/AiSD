@@ -59,12 +59,25 @@ class Mac_2d_k():
                 matrix.ustal(y, x, self.dane[y][x])
         return matrix
 
+    # ✅
+    # Uproszczanie macierzy
+    def uprosc(self) -> None:
+        flaga = 1
+
+        Mac_2d_k.aktualizacja(self)
+        for x in reversed(range(Mac_2d_k.wys)):
+            for y in reversed(range(Mac_2d_k.szer)):
+                if self.dane[y][x] == 0:
+                    flaga = flaga + 1
+                if flaga == Mac_2d_k.wys:
+                    del self.dane[y][x]
+            flaga = 1
+
+
 a = Mac_2d_k()
-a.ustal(0,1,1)
-a.ustal(1,0,3)
-a.ustal(1,1,4)
-a.ustal(2,3,-0.5)
+a.ustal(0,3,1)
+a.ustal(0,5,0)
+a.ustal(0,4,1)
+a.ustal(5,3,0)
+a.uprosc()
 a.print()
-c = a.transponuj()
-c.print()
-print(c.dane)
