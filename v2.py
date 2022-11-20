@@ -13,22 +13,22 @@ class Mac_2d_k():
             Mac_2d_k.wys = 0
             Mac_2d_k.szer = 0
         else:
-            Mac_2d_k.wys = len(self.dane)
-            Mac_2d_k.szer = len(self.dane[0])
+            Mac_2d_k.szer = len(self.dane)
+            Mac_2d_k.wys = len(self.dane[0])
         Mac_2d_k.dane = self.dane
 
     def ustal(self, nr_wiersza: int, nr_kolumny: int, wartosc: float) -> None:
         dane = self.dane
-        stara_szerokosc = Mac_2d_k.szer
+        stara_szerokosc = Mac_2d_k.wys
         Mac_2d_k.aktualizacja(self)
-        for x in range(nr_kolumny - Mac_2d_k.wys + 1):
+        for x in range(nr_kolumny - Mac_2d_k.szer + 1):
             dane.append([float(0) for x in range(nr_wiersza + 1)])
-        for x in range(Mac_2d_k.wys):
-            for y in range(nr_wiersza-Mac_2d_k.szer+1):
+        for x in range(Mac_2d_k.szer):
+            for y in range(nr_wiersza-Mac_2d_k.wys+1):
                 dane[x].append(float(0))
         for x in range(len(dane)):
             if len(dane[0]) != len(dane[x]):
-                for y in range(Mac_2d_k.szer - stara_szerokosc):
+                for y in range(Mac_2d_k.wys - stara_szerokosc):
                     dane[x].append(float(0))
         dane[nr_kolumny][nr_wiersza] = float(wartosc)
         self.dane = dane
@@ -39,8 +39,8 @@ class Mac_2d_k():
         if self.dane == []:
             print("Macierz jest pusta []")
             return
-        for x in range(Mac_2d_k.szer):
-            for y in range(Mac_2d_k.wys):
+        for x in range(Mac_2d_k.wys):
+            for y in range(Mac_2d_k.szer):
                 print(str(self.dane[y][x]) + " ", end="")
             print()
         print("\n")
