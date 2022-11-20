@@ -3,12 +3,15 @@ class Mac_2d_k():
     wys: int
     szer: int
 
+    # ✅
     # Inicjalizer klasy
-    def __init__(self):
+    def __init__(self) -> None:
         self.dane = []
         Mac_2d_k.aktualizacja(self)
 
-    def aktualizacja(self):
+    # ✅
+    # Aktualizuje dane do danego obiektu
+    def aktualizacja(self) -> None:
         if self.dane == []:
             Mac_2d_k.wys = 0
             Mac_2d_k.szer = 0
@@ -17,26 +20,69 @@ class Mac_2d_k():
             Mac_2d_k.wys = len(self.dane[0])
         Mac_2d_k.dane = self.dane
 
+    # ✅
+    # Mnożonko
+    def __mul__(self, other:'Mac_2dk') -> 'Mac_2d_k':
+
+        # Zmienne pomocnicze
+        Mac_2d_k.aktualizacja(self)
+        szer = Mac_2d_k.szer
+        wys = Mac_2d_k.wys
+        other.aktualizacja()
+        szer2 = other.szer
+        wys2 = other.wys
+        matrix = Mac_2d_k()
+        pomoc = [[float(0) for x in range(szer2)] for y in range(szer)]
+
+        if szer == wys2:
+            # Mnożonko do pomocniczej macierzy
+            for i in range(szer):
+                for j in range(szer2):
+                    for k in range(wys2):
+                        pomoc[i][j] += (float(self.dane[k][i] * other.pobierz(k, j)))
+
+            # Przepisywanie do nowego obiektu 'Mac_2d_k'
+            for j in range(szer2):
+                for i in range(szer):
+                    matrix.ustal(j, i, pomoc[i][j])
+            matrix.aktualizacja()
+            return matrix
+        else:
+            print("Zła macierz")
+            return matrix
+
+    # ✅
+    # Tak jak nazwa mówi
     def ustal(self, nr_wiersza: int, nr_kolumny: int, wartosc: float) -> None:
         dane = self.dane
         stara_szerokosc = Mac_2d_k.wys
         Mac_2d_k.aktualizacja(self)
+
+        # Ewentualne dopełnianie macierzy
         for x in range(nr_kolumny - Mac_2d_k.szer + 1):
             dane.append([float(0) for x in range(nr_wiersza + 1)])
         for x in range(Mac_2d_k.szer):
             for y in range(nr_wiersza-Mac_2d_k.wys+1):
                 dane[x].append(float(0))
+
+        #   Bezpiecznik na wypadek a.ustal(0,1), a.ustal(11,0) itd.
         for x in range(len(dane)):
             if len(dane[0]) != len(dane[x]):
                 for y in range(Mac_2d_k.wys - stara_szerokosc):
                     dane[x].append(float(0))
+
+        #    Wpisywanie danych
         dane[nr_kolumny][nr_wiersza] = float(wartosc)
         self.dane = dane
         Mac_2d_k.aktualizacja(self)
 
+    # ✅
+    # Tak jak nazwa mówi
     def pobierz(self, nr_wiersza: int,nr_kolumny: int) -> float:
         return float(self.dane[nr_kolumny][nr_wiersza])
 
+    # ✅
+    # Tak jak nazwa mówi
     def print(self) -> str:
         Mac_2d_k.aktualizacja(self)
         if self.dane == []:
@@ -48,7 +94,8 @@ class Mac_2d_k():
             print()
         print("\n")
 
-
+    # ✅
+    # Tak jak nazwa mówi
     def transponuj(self) -> 'Mac_2d_k':
         Mac_2d_k.aktualizacja(self)
         szer = Mac_2d_k.szer
@@ -93,23 +140,19 @@ class Mac_2d_k():
                 break
             flaga = 0
         Mac_2d_k.aktualizacja(self)
+        Mac_2d_k.aktualizacja(self)
         matrix = [[float(0) for x in range(Mac_2d_k.szer)] for y in range(Mac_2d_k.wys)]
         for x in range(Mac_2d_k.wys):
             for y in range(Mac_2d_k.szer):
                 matrix[x][y] = self.dane[y][x]
         self.dane = matrix
+        Mac_2d_k.aktualizacja(self)
 a = Mac_2d_k()
-a.ustal(0,3,1)
-a.ustal(0,6,0)
-a.ustal(0,4,1)
-a.ustal(1,1,0)
-a.ustal(4,4,0)
-a.ustal(4,5,0)
-a.ustal(2,2,2)
-a.ustal(3,2,2)
-a.print()
-print(a.dane)
-a.uprosc()
+a.ustal(0,0,1)
+a.ustal(0,1,2)
+a.ustal(1,0,3)
+a.ustal(1,44,4)
+a = a * a
 a.print()
 
 
