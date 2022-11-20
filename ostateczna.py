@@ -68,7 +68,7 @@ class Mac_2d_k():
         #   Bezpiecznik na wypadek a.ustal(0,1), a.ustal(11,0) itd.
         for x in range(len(dane)):
             if len(dane[0]) != len(dane[x]):
-                for y in range(Mac_2d_k.wys - stara_szerokosc):
+                for y in range(Mac_2d_k.wys):
                     dane[x].append(float(0))
 
         #    Wpisywanie danych
@@ -141,10 +141,18 @@ class Mac_2d_k():
                 break
             flaga = 0
         Mac_2d_k.aktualizacja(self)
-        Mac_2d_k.aktualizacja(self)
         matrix = [[float(0) for x in range(Mac_2d_k.szer)] for y in range(Mac_2d_k.wys)]
         for x in range(Mac_2d_k.wys):
             for y in range(Mac_2d_k.szer):
                 matrix[x][y] = self.dane[y][x]
         self.dane = matrix
         Mac_2d_k.aktualizacja(self)
+
+a = Mac_2d_k()
+a.ustal(3,3,3)
+a.ustal(5,4,0)
+print(a.dane)
+# a.print()
+# print(a.dane)
+# # a.uprosc()
+a.print()
