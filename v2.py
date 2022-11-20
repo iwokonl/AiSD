@@ -32,25 +32,24 @@ class Mac_2d_k():
         szer2 = other.szer
         wys2 = other.wys
         matrix = Mac_2d_k()
-        pomoc = [[float(0) for x in range(szer2)] for y in range(wys)]
-        print(pomoc)
-        # if szer == wys2:
-        #     # Mnożonko do pomocniczej macierzy
-        #     for i in range(szer):
-        #         for j in range(szer2):
-        #             for k in range(wys2):
-        #                 pomoc[i][j] += (float(self.dane[j][i] * other.pobierz(j, k)))
-        #
-        #     # Przepisywanie do nowego obiektu 'Mac_2d_k'
-        #     for j in range(szer2):
-        #         for i in range(szer):
-        #             matrix.ustal(j, i, pomoc[i][j])
-        #     matrix.aktualizacja()
-        #     return matrix
-        # else:
-        #     matrix.aktualizacja()
-        #     print("Zła macierz")
-        #     return matrix
+        pomoc = [[float(0) for x in range(wys)] for y in range(szer2)]
+
+
+        if szer == wys2:
+            # Mnożonko do pomocniczej macierzy
+            for i in range(szer2):
+                for j in range(wys):
+                    for k in range(szer):
+                        pomoc[i][j] += float(self.dane[k][j]) * float(other.pobierz(j,i))
+            # Przepisywanie do nowego obiektu 'Mac_2d_k'
+            for j in range(szer2):
+                for i in range(wys):
+                    matrix.ustal(i,j,pomoc[j][i])
+            return matrix
+        else:
+            matrix.aktualizacja()
+            print("Zła macierz")
+            return matrix
 
     # ✅
     # Tak jak nazwa mówi
@@ -151,16 +150,18 @@ class Mac_2d_k():
 a = Mac_2d_k()
 a.ustal(0,0,1)
 a.ustal(0,1,2)
-a.ustal(0,2,2)
-a.ustal(1,0,3)
-a.ustal(1,1,4)
-a.ustal(1,2,1)
+a.ustal(0,2,3)
+a.ustal(1,0,4)
+a.ustal(1,1,5)
+a.ustal(1,2,6)
+a.print()
 b = Mac_2d_k()
-b.ustal(0,0,1)
-b.ustal(1,0,3)
-b.ustal(2,0,3)
+b.ustal(0,0,7)
+b.ustal(1,0,8)
+b.ustal(2,0,9)
 print()
 c = a * b
+c.print()
 
 
 
