@@ -34,6 +34,9 @@ class Mac_2d_k():
         self.dane = dane
         Mac_2d_k.aktualizacja(self)
 
+    def pobierz(self, nr_wiersza: int,nr_kolumny: int) -> float:
+        return float(self.dane[nr_kolumny][nr_wiersza])
+
     def print(self) -> str:
         Mac_2d_k.aktualizacja(self)
         if self.dane == []:
@@ -44,12 +47,24 @@ class Mac_2d_k():
                 print(str(self.dane[y][x]) + " ", end="")
             print()
         print("\n")
+
+    def transponuj(self) -> 'Mac_2d_k':
+        Mac_2d_k.aktualizacja(self)
+        szer = Mac_2d_k.szer
+        wys = Mac_2d_k.wys
+        matrix = Mac_2d_k()
+        matrix.ustal(szer-1,wys-1,0)
+        for x in range(wys):
+            for y in range(szer):
+                matrix.ustal(y, x, self.dane[y][x])
+        return matrix
+
 a = Mac_2d_k()
 a.ustal(0,1,1)
 a.ustal(1,0,3)
 a.ustal(1,1,4)
 a.ustal(2,3,-0.5)
-print(a.wys)
-
-
 a.print()
+c = a.transponuj()
+c.print()
+print(c.dane)
