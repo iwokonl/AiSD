@@ -40,8 +40,8 @@ class Mac_2d_k():
             for i in range(szer2):
                 for j in range(wys):
                     for k in range(szer):
-                        pomoc[j][i] += float(self.dane[k][j]) * \
-                                       float(other.pobierz(i, j))
+                        pomoc[j][i] += float(self.dane[k][i]) * \
+                                       float(other.pobierz(k, j))
             # Przepisywanie do nowego obiektu 'Mac_2d_k'
             for j in range(szer2):
                 for i in range(wys):
