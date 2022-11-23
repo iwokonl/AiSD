@@ -43,15 +43,12 @@ class Mac_2d_k():
                         pomoc[j][i] += float(self.dane[k][i]) * \
                                        float(other.pobierz(k, j))
             # Przepisywanie do nowego obiektu 'Mac_2d_k'
-                    print()
             for j in range(szer2):
                 for i in range(wys):
                     matrix.ustal(i, j, pomoc[j][i])
             return matrix
-        else:
-            matrix.aktualizacja()
-            print("Zła macierz")
-            return matrix
+
+
     # ✅
     # Tak jak nazwa mówi
     def ustal(self, nr_wiersza: int, nr_kolumny: int, wartosc: float) -> None:
