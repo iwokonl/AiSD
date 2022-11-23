@@ -40,8 +40,8 @@ class Mac_2d_k():
             for i in range(szer2):
                 for j in range(wys):
                     for k in range(szer):
-                        pomoc[i][j] += float(self.dane[k][j]) *\
-                                       float(other.pobierz(j, i))
+                        pomoc[j][i] += float(self.dane[k][j]) * \
+                                       float(other.pobierz(i, j))
             # Przepisywanie do nowego obiektu 'Mac_2d_k'
             for j in range(szer2):
                 for i in range(wys):
@@ -51,7 +51,6 @@ class Mac_2d_k():
             matrix.aktualizacja()
             print("Zła macierz")
             return matrix
-
     # ✅
     # Tak jak nazwa mówi
     def ustal(self, nr_wiersza: int, nr_kolumny: int, wartosc: float) -> None:
