@@ -35,7 +35,7 @@ class Mac_2d_k():
         matrix = Mac_2d_k()
         pomoc = [[float(0) for x in range(wys)] for y in range(szer2)]
 
-        if szer == wys2:
+        if szer == wys2 or wys == szer2:
             # Mnożonko do pomocniczej macierzy
             for i in range(szer2):
                 for j in range(wys):
