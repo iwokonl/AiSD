@@ -43,6 +43,7 @@ class Mac_2d_k():
                         pomoc[j][i] += float(self.dane[k][i]) * \
                                        float(other.pobierz(k, j))
             # Przepisywanie do nowego obiektu 'Mac_2d_k'
+                    print()
             for j in range(szer2):
                 for i in range(wys):
                     matrix.ustal(i, j, pomoc[j][i])
