@@ -1,4 +1,6 @@
 class Mac_2d_k():
+    # ✅
+    # Pola danych
     dane: list[list[float]]
     wys: int
     szer: int
@@ -23,7 +25,6 @@ class Mac_2d_k():
     # ✅
     # Mnożonko
     def __mul__(self, other: 'Mac_2dk') -> 'Mac_2d_k':
-
         # Zmienne pomocnicze
         Mac_2d_k.aktualizacja(self)
         szer = Mac_2d_k.szer
@@ -54,6 +55,7 @@ class Mac_2d_k():
     # ✅
     # Tak jak nazwa mówi
     def ustal(self, nr_wiersza: int, nr_kolumny: int, wartosc: float) -> None:
+        # Zmienne
         dane = self.dane
         stara_szerokosc = Mac_2d_k.wys
         Mac_2d_k.aktualizacja(self)
@@ -79,8 +81,11 @@ class Mac_2d_k():
     # ✅
     # Tak jak nazwa mówi
     def pobierz(self, nr_wiersza: int, nr_kolumny: int) -> float:
+        # Zmienne
         Mac_2d_k.aktualizacja(self)
-        if nr_wiersza > self.wys - 1  or nr_kolumny > self.szer - 1:
+
+        # Pobiera wartość macierzy, zwraca zero jeżeli out of index
+        if nr_wiersza > self.wys - 1 or nr_kolumny > self.szer - 1:
             return float(0)
         else:
             return float(self.dane[nr_kolumny][nr_wiersza])
@@ -89,10 +94,15 @@ class Mac_2d_k():
     # ✅
     # Tak jak nazwa mówi
     def print(self) -> str:
+        # Zmienne
         Mac_2d_k.aktualizacja(self)
+
+        # Informuje o pustej macierzy
         if self.dane == []:
             print("Macierz jest pusta []")
             return
+
+        # printuje
         for x in range(Mac_2d_k.wys):
             for y in range(Mac_2d_k.szer):
                 print(str(self.dane[y][x]) + " ", end="")
@@ -102,11 +112,15 @@ class Mac_2d_k():
     # ✅
     # Tak jak nazwa mówi
     def transponuj(self) -> 'Mac_2d_k':
+        # Zmienne
         Mac_2d_k.aktualizacja(self)
         szer = Mac_2d_k.szer
         wys = Mac_2d_k.wys
         matrix = Mac_2d_k()
+        # Tworzy macierz o wymiarach odwrotnych
         matrix.ustal(szer-1, wys-1, 0)
+
+        # Odwraca i aktualizuje
         for x in range(wys):
             for y in range(szer):
                 matrix.ustal(y, x, self.dane[y][x])
@@ -116,8 +130,10 @@ class Mac_2d_k():
     # ✅
     # Uproszczanie macierzy
     def uprosc(self) -> None:
+        # Zmienne
         flaga = 0
 
+        # Obicna dane o wartości 0.0
         Mac_2d_k.aktualizacja(self)
         for y in reversed(range(Mac_2d_k.wys)):
             for x in reversed(range(Mac_2d_k.szer)):
@@ -130,12 +146,15 @@ class Mac_2d_k():
             flaga = 0
         flaga = 0
 
+        # Odwraca macierz
         Mac_2d_k.aktualizacja(self)
         matrix = [[float(0) for x in range(Mac_2d_k.szer)] for y in range(Mac_2d_k.wys)]
         for x in range(Mac_2d_k.wys):
             for y in range(Mac_2d_k.szer):
                 matrix[x][y] = self.dane[y][x]
         self.dane = matrix
+
+        # Obcina dane o wartości 0.0
         for x in reversed(range(Mac_2d_k.szer)):
             for y in reversed(range(Mac_2d_k.wys)):
                 if self.dane[y][x] == 0:
@@ -145,6 +164,8 @@ class Mac_2d_k():
             if flaga < Mac_2d_k.wys:
                 break
             flaga = 0
+
+        # Odwraca macierz
         Mac_2d_k.aktualizacja(self)
         matrix = [[float(0) for x in range(Mac_2d_k.szer)] for y in range(Mac_2d_k.wys)]
         for x in range(Mac_2d_k.wys):
@@ -152,12 +173,3 @@ class Mac_2d_k():
                 matrix[x][y] = self.dane[y][x]
         self.dane = matrix
         Mac_2d_k.aktualizacja(self)
-
-a = Mac_2d_k()
-a.ustal(3,3,3)
-a.ustal(5,4,0)
-print(a.dane)
-# a.print()
-# print(a.dane)
-# # a.uprosc()
-a.print()
