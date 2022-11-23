@@ -79,7 +79,12 @@ class Mac_2d_k():
     # ✅
     # Tak jak nazwa mówi
     def pobierz(self, nr_wiersza: int, nr_kolumny: int) -> float:
-        return float(self.dane[nr_kolumny][nr_wiersza])
+        Mac_2d_k.aktualizacja(self)
+        if nr_wiersza > self.wys - 1  or nr_kolumny > self.szer - 1:
+            return float(0)
+        else:
+            return float(self.dane[nr_kolumny][nr_wiersza])
+
 
     # ✅
     # Tak jak nazwa mówi
