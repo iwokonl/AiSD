@@ -22,7 +22,7 @@ class Mac_2d_k():
             Mac_2d_k.wys = len(self.dane[0])
         Mac_2d_k.dane = self.dane
 
-    # ✅
+        # ✅
     # Mnożonko
     def __mul__(self, other: 'Mac_2dk') -> 'Mac_2d_k':
         # Zmienne pomocnicze
@@ -46,6 +46,9 @@ class Mac_2d_k():
             for j in range(szer2):
                 for i in range(wys):
                     matrix.ustal(i, j, pomoc[j][i])
+            return matrix
+        else:
+            print("Zła macierz")
             return matrix
 
 
