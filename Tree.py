@@ -44,6 +44,15 @@ class TreeNode:
     def __repr__(self):
         return f'{self.value}'
 
+    def show(self, level):
+        print(' ' * 4 * level + '->', self.value)
+        if self.children != []:
+            for child in self.children:
+                child.show(level + 1)
+        print()
+
+
+
 
 class Tree:
     root: TreeNode
@@ -72,6 +81,7 @@ class Tree:
     def for_each_deep_first(self, visit):
         self.root.for_each_deep_first(visit)
 
-
+    def show(self):
+        self.root.show(0)
 def _visit(node: TreeNode):
     print(node)
